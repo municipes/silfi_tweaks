@@ -15,10 +15,13 @@ function silfi_tweaks_form_alter(array &$form, \Drupal\Core\Form\FormStateInterf
 
   $target_fieldsets = ['field_punti_di_contatto', 'field_incarichi'];
   $target_forms = [
+    'node_servizio_form',
     'node_servizio_edit_form',
     'node_servizio_add_form',
+    'node_persona_form',
     'node_persona_edit_form',
     'node_persona_add_form',
+    'node_unita_organizzativa_form',
     'node_unita_organizzativa_edit_form',
     'node_unita_organizzativa_add_form',
   ];
