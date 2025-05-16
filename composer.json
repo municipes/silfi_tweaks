@@ -1,0 +1,23 @@
+{
+  "name": "municipes/silfi_tweaks",
+  "description": "Customizations for the Silfi project.",
+  "type": "drupal-module",
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/municipes/silfi_tweaks",
+  "authors": [
+      {
+          "name": "Maurizio Cavalletti",
+          "homepage":"https://www.drupal.org/u/maurizio_akabit",
+          "role": "Maintainer"
+      }
+  ],
+  "support": {
+      "issues": "https://github.com/municipes/silfi_tweaks/issues",
+      "source": "https://github.com/municipes/silfi_tweaks"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+      "drupal/inline_entity_form": "^1.0@RC"
+  }
+}
