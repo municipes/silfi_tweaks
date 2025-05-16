@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for silfi_tweaks module.
+ */
+
+ /**
+ * Implements hook_form_alter().
+ */
+function silfi_tweaks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_servizio_edit_form') {
+    // Verifica se l'elemento 'field_punti_di_contatto' e i bottoni esistono
+    if (isset($form['field_punti_di_contatto']['widget']['actions']['ief_add']) && isset($form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'])) {
+      // Memorizza temporaneamente il bottone "Aggiungi un nodo esistente"
+      $existing_button = $form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'];
+
+      // Sposta "Aggiungi un nuovo nodo" nella posizione di "Aggiungi un nodo esistente"
+      $form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'] = $form['field_punti_di_contatto']['widget']['actions']['ief_add'];
+
+      // Sposta "Aggiungi un nodo esistente" (memorizzato) nella posizione di "Aggiungi un nuovo nodo"
+      $form['field_punti_di_contatto']['widget']['actions']['ief_add'] = $existing_button;
+    }
+  }
+}
