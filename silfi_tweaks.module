@@ -8,18 +8,38 @@
  /**
  * Implements hook_form_alter().
  */
-function silfi_tweaks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if ($form_id == 'node_servizio_edit_form') {
-    // Verifica se l'elemento 'field_punti_di_contatto' e i bottoni esistono
-    if (isset($form['field_punti_di_contatto']['widget']['actions']['ief_add']) && isset($form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'])) {
-      // Memorizza temporaneamente il bottone "Aggiungi un nodo esistente"
-      $existing_button = $form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'];
+function silfi_tweaks_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // This function is a hook that allows us to alter any form in the system.
+  // We are going to use it to swap the positions of the "Add existing" and "Add new" buttons
+  // on the "Punti di contatto" fieldset for the Servizio, Persona, and Unit  organizzativa content types.
 
-      // Sposta "Aggiungi un nuovo nodo" nella posizione di "Aggiungi un nodo esistente"
-      $form['field_punti_di_contatto']['widget']['actions']['ief_add_existing'] = $form['field_punti_di_contatto']['widget']['actions']['ief_add'];
+  $target_fieldsets = ['field_punti_di_contatto', 'field_incarichi'];
+  $target_forms = [
+    'node_servizio_edit_form',
+    'node_servizio_add_form',
+    'node_persona_edit_form',
+    'node_persona_add_form',
+    'node_unita_organizzativa_edit_form',
+    'node_unita_organizzativa_add_form',
+  ];
 
-      // Sposta "Aggiungi un nodo esistente" (memorizzato) nella posizione di "Aggiungi un nuovo nodo"
-      $form['field_punti_di_contatto']['widget']['actions']['ief_add'] = $existing_button;
+  // If we are on one of the forms we are targeting, and the form has both the "Add existing" and
+  // "Add new" buttons, then...
+  if (in_array($form_id, $target_forms) &&
+      isset($form['field_punti_di_contatto']) ||
+      isset($form['field_incarichi'])) {
+    foreach ($target_fieldsets as $target_fieldset) {
+      if (isset($form[$target_fieldset]['widget']['actions']['ief_add'],
+                $form[$target_fieldset]['widget']['actions']['ief_add_existing'])) {
+        // Temporarily store the "Add existing" button.
+        $temp = $form[$target_fieldset]['widget']['actions']['ief_add_existing'];
+
+        // Replace the "Add existing" button with the "Add new" button.
+        $form[$target_fieldset]['widget']['actions']['ief_add_existing'] = $form[$target_fieldset]['widget']['actions']['ief_add'];
+
+        // Replace the "Add new" button with the "Add existing" button.
+        $form[$target_fieldset]['widget']['actions']['ief_add'] = $temp;
+      }
     }
   }
 }
