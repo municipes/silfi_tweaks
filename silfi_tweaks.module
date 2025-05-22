@@ -13,7 +13,7 @@ function silfi_tweaks_form_alter(array &$form, \Drupal\Core\Form\FormStateInterf
   // We are going to use it to swap the positions of the "Add existing" and "Add new" buttons
   // on the "Punti di contatto" fieldset for the Servizio, Persona, and Unit  organizzativa content types.
 
-  $target_fieldsets = ['field_punti_di_contatto', 'field_incarichi'];
+  $target_fieldsets = ['field_punti_di_contatto', 'field_incarichi', 'field_accedi_al_servizio'];
   $target_forms = [
     'node_servizio_form',
     'node_servizio_edit_form',
@@ -30,7 +30,8 @@ function silfi_tweaks_form_alter(array &$form, \Drupal\Core\Form\FormStateInterf
   // "Add new" buttons, then...
   if (in_array($form_id, $target_forms) &&
       isset($form['field_punti_di_contatto']) ||
-      isset($form['field_incarichi'])) {
+      isset($form['field_incarichi']) ||
+      isset($form['field_accedi_al_servizio'])) {
     foreach ($target_fieldsets as $target_fieldset) {
       if (isset($form[$target_fieldset]['widget']['actions']['ief_add'],
                 $form[$target_fieldset]['widget']['actions']['ief_add_existing'])) {
