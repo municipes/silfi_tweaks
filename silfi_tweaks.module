@@ -24,6 +24,9 @@ function silfi_tweaks_form_alter(array &$form, \Drupal\Core\Form\FormStateInterf
     'node_unita_organizzativa_form',
     'node_unita_organizzativa_edit_form',
     'node_unita_organizzativa_add_form',
+    'node_luogo_form',
+    'node_luogo_edit_form',
+    'node_luogo_add_form',
   ];
 
   // If we are on one of the forms we are targeting, and the form has both the "Add existing" and
